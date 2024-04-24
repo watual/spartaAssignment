@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Calculator {
     /* 연산 결과를 저장하는 컬렉션 타입 필드 선언 및 생성 */
-    ArrayList<Integer> result = new ArrayList<>();
+    private ArrayList<Integer> result = new ArrayList<>();
 
     public Integer calculate(int num1, int num2, String oper) {
         /* 나눗셈에서 분모에 0이 들어오거나 연산자 기호가 잘 못 들어온 경우 적합한 Exception 클래스를 생성하여 throw */
@@ -30,6 +30,9 @@ public class Calculator {
 
     public ArrayList<Integer> getResult(){
         return this.result;
+    }
+    public void setResult(ArrayList<Integer> result){
+        this.result = result;
     }
     public void removeFirst(){
         this.result.removeFirst();
