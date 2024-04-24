@@ -36,12 +36,20 @@ public class App {
                 System.out.println(e.getClass());
                 System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
             }
+            System.out.println(STR."결과: \{result[resultIndex]}");
             /* index를 증가 시킵니다. */
-            System.out.println(STR."결과: \{result[resultIndex++]}");
+            resultIndex++;
+            /* 연산 결과가 10개를 초과하는 경우 가장 먼저 저장된 결과를 삭제 */
+            if (resultIndex > 9) {
+                for (int i = 0; i < 9; i++) {
+                    result[i] = result[i + 1];
+                }
+                resultIndex = 9;
+            }
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
             /* exit을 입력 받으면 반복 종료 */
-            if ( sc.nextLine().equals("exit") ){
+            if (sc.nextLine().equals("exit")) {
                 break;
             }
 
