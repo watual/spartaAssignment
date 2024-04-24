@@ -15,6 +15,7 @@ public class App {
 //        int resultIndex = 0;
 
         /* Calculator 인스턴스 생성 */
+        /* +Calculator 인스턴스는 Calculator 생성자에서 생성 */
         Calculator calculator = new Calculator();
 
         Scanner sc = new Scanner(System.in);
