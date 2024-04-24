@@ -27,4 +27,11 @@ public class Calculator {
         /* return 연산 결과 */
         return result.getLast();
     }
+
+    public ArrayList<Integer> getResult(){
+        return this.result;
+    }
+    public void removeFirst(){
+        this.result.removeFirst();
+    }
 }
