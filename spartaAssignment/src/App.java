@@ -33,7 +33,7 @@ public class App {
             int num2 = Integer.parseInt(sc.nextLine());
 
             /* 연산 수행 역할은 Calculator 클래스가 담당 */
-            System.out.println(STR."결과: \{ calculator.calculate(num1, num2, oper) }");
+            System.out.println(STR."결과: \{calculator.calculate(num1, num2, oper)}");
 
             System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
             /* “remove”라는 문자열을 입력받으면 가장 먼저 저장된 결과가 삭제될 수 있도록 구현 */
@@ -42,14 +42,9 @@ public class App {
                 calculator.removeResult();
             }
 
+            /* Calculator 클래스에 저장된 연산 결과들을 조회하는 기능을 가진 메서드를 구현한 후 App 클래스의 main 메서드에 조회 메서드가 활용 */
             System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
-            /* “inquiry”라는 문자열이 입력되면 저장된 연산 결과 전부를 출력 */
-            if(sc.nextLine().equals("inquiry")){
-                AtomicInteger i= new AtomicInteger(1);
-                calculator.getResult().forEach( element -> {
-                    System.out.println(STR."결과\{i.getAndIncrement()}: \{element}");
-                });
-            }
+            calculator.inquiryResults();
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
             /* exit을 입력 받으면 반복 종료 */
