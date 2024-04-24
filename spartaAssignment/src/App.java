@@ -1,6 +1,6 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class App {
     public static void main(String[] args) {
@@ -58,6 +58,15 @@ public class App {
             /* “remove”라는 문자열을 입력받으면 가장 먼저 저장된 결과가 삭제될 수 있도록 구현 */
             if (sc.nextLine().equals("remove")) {
                 result.removeFirst();
+            }
+
+            System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
+            /* “inquiry”라는 문자열이 입력되면 저장된 연산 결과 전부를 출력 */
+            if(sc.nextLine().equals("inquiry")){
+                AtomicInteger i= new AtomicInteger(1);
+                result.forEach( element -> {
+                    System.out.println(STR."결과\{i.getAndIncrement()}: \{element}");
+                });
             }
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
