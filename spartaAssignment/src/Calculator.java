@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Calculator {
     /* 연산 결과를 저장하는 컬렉션 타입 필드 선언 및 생성 */
+    /* +연산 결과를 저장하는 컬렉션 타입 필드를 외부에서 직접 접근 하지 못하도록 수정*/
     private ArrayList<Integer> result = new ArrayList<>();
 
     public Integer calculate(int num1, int num2, String oper) {
@@ -34,7 +35,7 @@ public class Calculator {
     public void setResult(ArrayList<Integer> result){
         this.result = result;
     }
-    public void removeFirst(){
+    public void removeResult(){
         this.result.removeFirst();
     }
 }
