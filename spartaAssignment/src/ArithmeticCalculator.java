@@ -9,7 +9,7 @@ public class ArithmeticCalculator implements AbstractOperation {
         /* 나눗셈에서 분모에 0이 들어오거나 연산자 기호가 잘 못 들어온 경우 적합한 Exception 클래스를 생성하여 throw */
         int result = 0;
         try {
-            if (!oper.equals("+") && !oper.equals("-") && !oper.equals("*") && !oper.equals("/")) {
+            if (!oper.equals("+") && !oper.equals("-") && !oper.equals("*") && !oper.equals("/") && !oper.equals("%")) {
                 throw new NewBadException();
             }
             /* 제어문을 활용하여 연산 */
@@ -19,6 +19,8 @@ public class ArithmeticCalculator implements AbstractOperation {
                 case "-" -> setAbstractFBOperations(new SubtractOperator());
                 case "*" -> setAbstractFBOperations(new MultiplayOperator());
                 case "/" -> setAbstractFBOperations(new DivideOperator());
+                case "%" -> setAbstractFBOperations(new ModOperator());
+
             }
             result = abstractFBOperations.operate(num1, num2);
         } catch (ArithmeticException e) {
