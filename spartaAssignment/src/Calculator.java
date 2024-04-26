@@ -10,9 +10,14 @@ public class Calculator {
 
     private Scanner sc = new Scanner(System.in);
 
+    /* static, final 활용 */
+    /* 원의 넓이 결과를 저장하는 컬렉션 타입의 필드 선언 및 생성 */
+    private static ArrayList<Double> circleArea;
+
     /* 생성자 구현 */
     public Calculator() {
         this.result = new ArrayList<>();
+        this.circleArea = new ArrayList<Double>();
     }
 
     public Integer calculate(int num1, int num2, String oper) {
@@ -59,5 +64,18 @@ public class Calculator {
                 System.out.println(STR."결과\{i.getAndIncrement()}: \{element}");
             });
         }
+    }
+
+    /* 원의 넓이를 구하는 메서드 선언*/
+    public double calculateCircleArea(int radius) {
+        /* 원의 넓이 계산 구현 */
+        circleArea.add(Math.PI * radius * 2);
+        return circleArea.getLast();
+    }
+    public ArrayList<Double> getCircleArea() {
+        return circleArea;
+    }
+    public void setCircleArea(ArrayList<Double> newCircleArea){
+        circleArea = newCircleArea;
     }
 }
