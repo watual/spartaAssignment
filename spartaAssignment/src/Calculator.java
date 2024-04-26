@@ -14,34 +14,28 @@ public class Calculator {
     /* 원의 넓이 결과를 저장하는 컬렉션 타입의 필드 선언 및 생성 */
     private static ArrayList<Double> circleArea;
 
+    private AbstractOperation operation;
+//    private AbstractOperation operation1 = new ArithmeticCalculator();
+//    private AbstractOperation operation2 = new CircleCalculator();
+
     /* 생성자 구현 */
     public Calculator() {
         this.result = new ArrayList<>();
-        this.circleArea = new ArrayList<Double>();
+        circleArea = new ArrayList<Double>();
     }
-
-    public Integer calculate(int num1, int num2, String oper) {
-        /* 나눗셈에서 분모에 0이 들어오거나 연산자 기호가 잘 못 들어온 경우 적합한 Exception 클래스를 생성하여 throw */
-        try {
-            if (!oper.equals("+") && !oper.equals("-") && !oper.equals("*") && !oper.equals("/")) {
-                throw new NewBadException();
-            }
-            /* 제어문을 활용하여 연산 */
-            switch (oper) {
-                /* 연산의 결과를 배열에 저장합니다. */
-                case "+" -> result.add(num1 + num2);
-                case "-" -> result.add(num1 - num2);
-                case "*" -> result.add(num1 * num2);
-                case "/" -> result.add(num1 / num2);
-            }
-        } catch (ArithmeticException e) {
-            System.out.println(e.getClass());
-            System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
-        } catch (NewBadException e) {
-            System.out.println(e.getMessage());
-        }
-        /* return 연산 결과 */
-        return result.getLast();
+//    public void setOperation(AbstractOperation operation){
+//        this.operation = operation;
+//    }
+    //calculate 를 유지시키면서 calculate 매개변수에 따라 맞는 클래스 호출
+    public Integer calculate(int num1, int num2, String oper){
+        operation = new ArithmeticCalculator();
+        this.result.add( operation.calculate(num1,num2,oper) );
+        return this.result.getLast();
+    }
+    public double calculate(int radius){
+        operation = new CircleCalculator();
+        circleArea.add( operation.calculate(radius) );
+        return circleArea.getLast();
     }
 
     public ArrayList<Integer> getResult() {
@@ -67,11 +61,7 @@ public class Calculator {
     }
 
     /* 원의 넓이를 구하는 메서드 선언*/
-    public double calculateCircleArea(int radius) {
-        /* 원의 넓이 계산 구현 */
-        circleArea.add(Math.PI * radius * 2);
-        return circleArea.getLast();
-    }
+
     public ArrayList<Double> getCircleArea() {
         return circleArea;
     }
@@ -79,3 +69,50 @@ public class Calculator {
         circleArea = newCircleArea;
     }
 }
+
+/*
+mian 메서드
+Calculator calculate 사용
+내부 사칙연산과 원넓이연산 메서드를 클래스로 분리 :
+====================
+#1 원본
+Calculator 클래스
+
+int calculate(int,int,str) : 사칙연산
+
+double calculate(int) : 원의 넓이
+====================
+#2 분리1(추상 미사용)
+Calculator 클래스
+
+ArithmeticCalculator
+int calculate(int,int,str) : 사칙연산
+
+CircleCalculator
+double calculate(int) : 원너비
+====================
+#3 분리2 (추상 사용)
+Calculator 클래스
+
+추상 Arithmetic or Circle
+
+ArithmeticCalculator
+int calculate(int,int,str) : 사칙연산
+double calculate(int) : null
+
+CircleCalculator
+int calculate(int,int,str) : null
+double calculate(int) : 원너비
+====================
+#3 분리3 (추상 사용)
+Calculator 클래스
+
+추상 Arithmetic or Circle
+
+ArithmeticCalculator
+double calculate(int,int,str) : 사칙연산
+
+CircleCalculator
+double calculate(int,int,str) : 원너비
+====================
+ */
