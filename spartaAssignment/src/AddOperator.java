@@ -1,5 +1,5 @@
 public class AddOperator implements AbstractFBOperations {
-    public int operate(int num1, int num2) {
+    public Double operate(Double num1, Double num2) {
         return num1 + num2;
     }
 }

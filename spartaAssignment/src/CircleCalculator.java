@@ -1,10 +1,10 @@
 public class CircleCalculator implements AbstractOperation {
     @Override
-    public int calculate(int num1, int num2, String oper) {
-        return 0;
+    public Double calculate(Double num1, Double num2, char oper) {
+        return (double) 0;
     }
 
-    public double calculate(int radius) {
+    public Double calculate(Double radius) {
         /* 원의 넓이 계산 구현 */
         return Math.PI * radius * 2;
     }

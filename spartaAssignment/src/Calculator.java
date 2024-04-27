@@ -2,17 +2,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Calculator {
+public class Calculator<T> {
     /* 연산 결과를 저장하는 컬렉션 타입 필드 선언 및 생성 */
     /* +연산 결과를 저장하는 컬렉션 타입 필드를 외부에서 직접 접근 하지 못하도록 수정*/
     /* +연산 결과를 저장하는 컬렉션 타입 필드가 생성자를 통해 초기화 되도록 변경 */
-    private ArrayList<Integer> result;
+    private ArrayList<T> result;
 
     private Scanner sc = new Scanner(System.in);
 
     /* static, final 활용 */
     /* 원의 넓이 결과를 저장하는 컬렉션 타입의 필드 선언 및 생성 */
-    private static ArrayList<Double> circleArea;
+    private ArrayList<T> circleArea;
 
     private AbstractOperation operation;
 //    private AbstractOperation operation1 = new ArithmeticCalculator();
@@ -21,28 +21,28 @@ public class Calculator {
     /* 생성자 구현 */
     public Calculator() {
         this.result = new ArrayList<>();
-        circleArea = new ArrayList<Double>();
+        this.circleArea = new ArrayList<>();
     }
 //    public void setOperation(AbstractOperation operation){
 //        this.operation = operation;
 //    }
     //calculate 를 유지시키면서 calculate 매개변수에 따라 맞는 클래스 호출
-    public Integer calculate(int num1, int num2, String oper){
+    public T calculate(Double num1, Double num2, char oper){
         operation = new ArithmeticCalculator();
-        this.result.add( operation.calculate(num1,num2,oper) );
+        this.result.add( (T) operation.calculate(num1,num2,oper) );
         return this.result.getLast();
     }
-    public double calculate(int radius){
+    public T calculate(Double radius){
         operation = new CircleCalculator();
-        circleArea.add( operation.calculate(radius) );
+        this.circleArea.add( (T) operation.calculate(radius) );
         return circleArea.getLast();
     }
 
-    public ArrayList<Integer> getResult() {
+    public ArrayList<T> getResult() {
         return this.result;
     }
 
-    public void setResult(ArrayList<Integer> result) {
+    public void setResult(ArrayList<T> result) {
         this.result = result;
     }
 
@@ -62,10 +62,10 @@ public class Calculator {
 
     /* 원의 넓이를 구하는 메서드 선언*/
 
-    public ArrayList<Double> getCircleArea() {
+    public ArrayList<T> getCircleArea() {
         return circleArea;
     }
-    public void setCircleArea(ArrayList<Double> newCircleArea){
+    public void setCircleArea(ArrayList<T> newCircleArea){
         circleArea = newCircleArea;
     }
 }
