@@ -59,6 +59,16 @@ public class Calculator<T> {
             });
         }
     }
+    public void printUpperResult(){
+        System.out.println("출력하고 싶은 최저연산결과 값을 입력해주세요: ");
+        double i = Double.parseDouble(sc.nextLine());
+
+        result.forEach( t -> {
+            if( (double)t > i){
+                System.out.println(STR."결과: \{t}");
+            }
+        });
+    }
 
     /* 원의 넓이를 구하는 메서드 선언*/
 
@@ -68,6 +78,7 @@ public class Calculator<T> {
     public void setCircleArea(ArrayList<T> newCircleArea){
         circleArea = newCircleArea;
     }
+
 }
 
 /*

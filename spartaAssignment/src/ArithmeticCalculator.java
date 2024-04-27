@@ -1,6 +1,9 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ArithmeticCalculator<T> implements AbstractOperation<T> {
+    Scanner sc = new Scanner(System.in);
+    private ArrayList<T> result = new ArrayList<T>();
 
     private AbstractFBOperations<T> abstractFBOperations;
 
@@ -35,6 +38,7 @@ public class ArithmeticCalculator<T> implements AbstractOperation<T> {
         } catch (NewBadException e) {
             System.out.println(e.getMessage());
         }
+        this.result.add(result);
         /* return 연산 결과 */
         return result;
     }
@@ -43,10 +47,5 @@ public class ArithmeticCalculator<T> implements AbstractOperation<T> {
     public T calculate(T radius) {
         return null;
     }
-
-    public void getUpResult(){
-        System.out.println();
-    }
-
 
 }
