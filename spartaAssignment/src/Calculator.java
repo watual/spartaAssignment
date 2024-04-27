@@ -14,7 +14,7 @@ public class Calculator<T> {
     /* 원의 넓이 결과를 저장하는 컬렉션 타입의 필드 선언 및 생성 */
     private ArrayList<T> circleArea;
 
-    private AbstractOperation operation;
+    private AbstractOperation<T> operation;
 //    private AbstractOperation operation1 = new ArithmeticCalculator();
 //    private AbstractOperation operation2 = new CircleCalculator();
 
@@ -27,14 +27,14 @@ public class Calculator<T> {
 //        this.operation = operation;
 //    }
     //calculate 를 유지시키면서 calculate 매개변수에 따라 맞는 클래스 호출
-    public T calculate(Double num1, Double num2, char oper){
-        operation = new ArithmeticCalculator();
-        this.result.add( (T) operation.calculate(num1,num2,oper) );
+    public T calculate(T num1, T num2, char oper){
+        operation = new ArithmeticCalculator<T>();
+        this.result.add( operation.calculate(num1,num2,oper) );
         return this.result.getLast();
     }
-    public T calculate(Double radius){
-        operation = new CircleCalculator();
-        this.circleArea.add( (T) operation.calculate(radius) );
+    public T calculate(T radius){
+        operation = new CircleCalculator<T>();
+        this.circleArea.add( operation.calculate(radius) );
         return circleArea.getLast();
     }
 

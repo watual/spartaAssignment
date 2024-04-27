@@ -1,11 +1,12 @@
-public class CircleCalculator implements AbstractOperation {
+public class CircleCalculator<T> implements AbstractOperation<T> {
     @Override
-    public Double calculate(Double num1, Double num2, char oper) {
-        return (double) 0;
+    public T calculate(T num1, T num2, char oper) {
+        return null;
     }
 
-    public Double calculate(Double radius) {
+    public T calculate(T radius) {
         /* 원의 넓이 계산 구현 */
-        return Math.PI * radius * 2;
+        Double result = Math.PI * 2 * (double) radius;
+        return (T) result;
     }
 }

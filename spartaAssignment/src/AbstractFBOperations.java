@@ -1,3 +1,3 @@
-public interface AbstractFBOperations{
-    public abstract Double operate(Double num1, Double num2);
+public interface AbstractFBOperations<T>{
+    public abstract T operate(T num1, T num2);
 }

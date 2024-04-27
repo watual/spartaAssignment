@@ -1,5 +1,8 @@
-public class ModOperator implements AbstractFBOperations {
-    public Double operate(Double num1, Double num2) {
-        return num1 % num2;
+public class ModOperator<T> implements AbstractFBOperations<T> {
+
+    @Override
+    public T operate(T num1, T num2) {
+        Double a = (double) num1 % (double) num2;
+        return (T) a;
     }
 }

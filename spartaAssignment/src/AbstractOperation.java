@@ -1,4 +1,4 @@
-public interface AbstractOperation{
-    abstract public Double calculate(Double num1, Double num2, char oper);
-    abstract public Double calculate(Double radius);
+public interface AbstractOperation<T> {
+    abstract public T calculate(T num1, T num2, char oper);
+    abstract public T calculate(T radius);
 }

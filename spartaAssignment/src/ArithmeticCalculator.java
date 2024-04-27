@@ -1,15 +1,17 @@
-public class ArithmeticCalculator implements AbstractOperation {
+import java.util.ArrayList;
 
-    private AbstractFBOperations abstractFBOperations;
+public class ArithmeticCalculator<T> implements AbstractOperation<T> {
+
+    private AbstractFBOperations<T> abstractFBOperations;
 
 
-    private void setAbstractFBOperations(AbstractFBOperations abstractFBOperations) {
+    private void setAbstractFBOperations(AbstractFBOperations<T> abstractFBOperations) {
         this.abstractFBOperations = abstractFBOperations;
     }
 
-    public Double calculate(Double num1, Double num2, char oper) {
+    public T calculate(T num1, T num2, char oper) {
         /* 나눗셈에서 분모에 0이 들어오거나 연산자 기호가 잘 못 들어온 경우 적합한 Exception 클래스를 생성하여 throw */
-        Double result = null;
+        T result = null;
         try {
             if ((oper != '+') && (oper != '-') && (oper != '*') && (oper != '/') && (oper != '%')) {
                 throw new NewBadException();
@@ -19,11 +21,11 @@ public class ArithmeticCalculator implements AbstractOperation {
             /* 제어문을 활용하여 연산 */
             switch (type) {
                 /* 연산의 결과를 배열에 저장합니다. */
-                case ADD -> setAbstractFBOperations(new AddOperator());
-                case SUBTRACT -> setAbstractFBOperations(new SubtractOperator());
-                case MULTIPLAY -> setAbstractFBOperations(new MultiplayOperator());
-                case DIVIDE -> setAbstractFBOperations(new DivideOperator());
-                case MOD -> setAbstractFBOperations(new ModOperator());
+                case ADD -> setAbstractFBOperations(new AddOperator<T>());
+                case SUBTRACT -> setAbstractFBOperations(new SubtractOperator<T>());
+                case MULTIPLAY -> setAbstractFBOperations(new MultiplayOperator<T>());
+                case DIVIDE -> setAbstractFBOperations(new DivideOperator<T>());
+                case MOD -> setAbstractFBOperations(new ModOperator<T>());
 
             }
             result = abstractFBOperations.operate(num1, num2);
@@ -38,7 +40,13 @@ public class ArithmeticCalculator implements AbstractOperation {
     }
 
     @Override
-    public Double calculate(Double radius) {
+    public T calculate(T radius) {
         return null;
     }
+
+    public void getUpResult(){
+        System.out.println();
+    }
+
+
 }
