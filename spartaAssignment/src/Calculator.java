@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Calculator<T> {
+public class Calculator<T extends Number> {
     /* 연산 결과를 저장하는 컬렉션 타입 필드 선언 및 생성 */
     /* +연산 결과를 저장하는 컬렉션 타입 필드를 외부에서 직접 접근 하지 못하도록 수정*/
     /* +연산 결과를 저장하는 컬렉션 타입 필드가 생성자를 통해 초기화 되도록 변경 */

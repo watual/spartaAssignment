@@ -16,7 +16,7 @@ public class App {
 
         /* Calculator 인스턴스 생성 */
         /* +Calculator 인스턴스는 Calculator 생성자에서 생성 */
-        Calculator<Double> calculator = new Calculator();
+        Calculator<Double> calculator = new Calculator<>();
         Scanner sc = new Scanner(System.in);
         /* 반복문 사용 해서 연산을 반복 */
         while (true) {
