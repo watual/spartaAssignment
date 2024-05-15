@@ -19,9 +19,9 @@ public class Schedule extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String title;
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, length = 1000)
     private String contents;
     @Column(nullable = false)
     private String manager;
@@ -30,13 +30,13 @@ public class Schedule extends Timestamped{
 
     public Schedule(ScheduleRequestDto requestDto){
         this.title = requestDto.getTitle();
-        this.contents = requestDto.getContexts();
+        this.contents = requestDto.getContents();
         this.manager = requestDto.getManager();
         this.password = requestDto.getPassword();
     }
     public void update(ScheduleRequestDto requestDto){
         this.title = requestDto.getTitle();
-        this.contents = requestDto.getContexts();
+        this.contents = requestDto.getContents();
         this.manager = requestDto.getManager();
         this.password = requestDto.getPassword();
     }
