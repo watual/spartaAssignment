@@ -3,10 +3,9 @@ package org.sparta.spartaassignment2.controller;
 import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
 import org.sparta.spartaassignment2.dto.ScheduleResponseDto;
 import org.sparta.spartaassignment2.service.ScheduleService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -19,6 +18,11 @@ public class ScheduleController {
     @PostMapping("/schedule")
     public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
         return scheduleService.createSchedule(requestDto);
+    }
+
+    @GetMapping("/schedule")
+    public List<ScheduleResponseDto> getScheduleAll(){
+        return scheduleService.getScheduleAll();
     }
 
 }

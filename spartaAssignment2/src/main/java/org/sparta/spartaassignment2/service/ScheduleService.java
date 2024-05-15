@@ -6,6 +6,8 @@ import org.sparta.spartaassignment2.entity.Schedule;
 import org.sparta.spartaassignment2.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
@@ -16,8 +18,12 @@ public class ScheduleService {
 
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto){
         Schedule schedule = new Schedule(requestDto);
-        Schedule saveSchedule = scheduleRepository.save(schedule);
-        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(saveSchedule);
+        scheduleRepository.save(schedule);
+        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
         return scheduleResponseDto;
+    }
+
+    public List<ScheduleResponseDto> getScheduleAll() {
+        return scheduleRepository.findAllByOrderByModifiedAtDesc().stream().map(ScheduleResponseDto::new).toList();
     }
 }

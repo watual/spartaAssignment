@@ -27,6 +27,7 @@ public class Schedule extends Timestamped{
     private String manager;
     @Column(nullable = false)
     private String password;
+    //private LocalDateTime createdAt;
 
     public Schedule(ScheduleRequestDto requestDto){
         this.title = requestDto.getTitle();
