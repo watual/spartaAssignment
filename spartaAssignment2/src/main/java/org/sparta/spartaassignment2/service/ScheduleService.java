@@ -19,11 +19,16 @@ public class ScheduleService {
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto){
         Schedule schedule = new Schedule(requestDto);
         scheduleRepository.save(schedule);
-        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
-        return scheduleResponseDto;
+        return new ScheduleResponseDto(schedule);
+    }
+
+    public ScheduleResponseDto getSchedule(Long id) {
+        Schedule schedule = scheduleRepository.findAllById(id);
+        return new ScheduleResponseDto(schedule);
     }
 
     public List<ScheduleResponseDto> getScheduleAll() {
         return scheduleRepository.findAllByOrderByModifiedAtDesc().stream().map(ScheduleResponseDto::new).toList();
     }
+
 }

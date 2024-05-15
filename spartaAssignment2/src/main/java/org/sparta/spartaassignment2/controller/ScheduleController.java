@@ -15,11 +15,18 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
+    // Body 요청 데이터 저장
     @PostMapping("/schedule")
     public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
         return scheduleService.createSchedule(requestDto);
     }
 
+    @GetMapping("/schedule/{id}")
+    public ScheduleResponseDto getSchedule(@PathVariable Long id){
+        return scheduleService.getSchedule(id);
+    }
+
+    // 전체 일정 조회
     @GetMapping("/schedule")
     public List<ScheduleResponseDto> getScheduleAll(){
         return scheduleService.getScheduleAll();

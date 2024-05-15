@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
+    Schedule findAllById(Long id);
     List<Schedule> findAllByOrderByModifiedAtDesc();
 }
