@@ -1,10 +1,8 @@
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class App {
     public static void main(String[] args) {
-        /* 연산의 결과를 저장할 수 있도록 적합한 타입의 배열을 생성합니다. */
+                /* 연산의 결과를 저장할 수 있도록 적합한 타입의 배열을 생성합니다. */
         /* +연산 결과가 10개로 고정되지 않고 무한이 저장될 수 있도록 소스 코드를 수정 */
         /* +적합한 컬렉션 타입의 변수 선언 */
         /* +연산 결과는 Calculator 클래스의 연산 결과를 저장하는 필드에 저장 */
@@ -27,6 +25,9 @@ public class App {
                 System.out.print("첫 번째 숫자를 입력하세요: ");
                 // Scanner를 사용하여 양의 정수를 입력받고 적합한 타입의 변수에 저장합니다.
                 Double num1 = Double.parseDouble(sc.nextLine());
+
+                Double x1 = 12.0;
+                int x12 = 0;
 
                 System.out.print("사칙연산 기호를 입력하세요: ");
                 // 사칙연산 기호를 적합한 타입으로 선언한 변수에 저장합니다.
