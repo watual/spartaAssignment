@@ -47,4 +47,12 @@ public class ScheduleService {
                 new IllegalArgumentException("스케쥴이 존재하지 않습니다.")
         );
     }
+
+    public void deleteSchedule(Long id, String password) {
+        if (password.equals(findSchedule(id).getPassword())) {
+            scheduleRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("틀린 비밀번호입니다.");
+        }
+    }
 }

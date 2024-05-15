@@ -35,10 +35,15 @@ public class ScheduleController {
     }
 
     // 선택한 일정 수정
-    @PostMapping("/schedule/{id}")
+    @PutMapping("/schedule/{id}")
     public ScheduleResponseDto modifySchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
-
         return scheduleService.modifySchedule(id, requestDto);
+    }
+
+    // 선택한 일정 삭제
+    @DeleteMapping("/schedule")
+    public void deleteSchedule(Long id, String password){
+        scheduleService.deleteSchedule(id, password);
     }
 
 }
