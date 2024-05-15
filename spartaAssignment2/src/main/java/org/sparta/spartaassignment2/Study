@@ -1,0 +1,39 @@
+@Repository
+public interface IUsrRepository extends JpaRepository<Usr, String> {
+	// 일반 JPA
+    Usr findById(String id);
+
+    // 일반 SQL 사용
+    @Query(value="select * from user u where u.id=?1", nativeQuery=true)
+    Usr findUsr1(String id);
+
+    // 일반 SQL에 파라미터 지정 사용
+    @Query(value="select * from user u where u.id=:id", nativeQuery=true)
+    Usr findUsr2(@Param(value=id)String id);
+
+    // 일반 SQL에 객체 파라미터 사용
+    @Query(value="select * from user u where u.id=:#{#userInfo.id}", nativeQuery=true)
+    Usr findUsr3(@Param(value=userInfo) UserInfo info);
+
+    // JPQL 사용
+    @Query("select * from from Usr u where u.id=?1")
+    Usr findUsr4(String id);
+
+    // JPQL 사용에 파라미터 지정 사용
+    @Query("select * from from Usr u where u.id=:id")
+    Usr findUsr5(@Param(value=id)String id);
+
+    // JPQL 사용에 객체 파라미터 사용
+    @Query(value="select * from Usr u where u.id=:#{#userInfo.id}")
+    Usr findUsr6(@Param(value=userInfo)UserInfo info);
+
+}
+
+    // 수정 쿼리
+    @Modifying
+    @Query("UPDATE Schedule s SET s.title = :title WHERE s.id = :id")
+    Schedule updateTitleById(Long id, String title);
+
+ ==================================================
+ Error 기록
+TransactionRequiredException: Executing an update/delete query
