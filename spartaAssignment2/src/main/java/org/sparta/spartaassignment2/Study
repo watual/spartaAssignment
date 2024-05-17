@@ -37,3 +37,5 @@ public interface IUsrRepository extends JpaRepository<Usr, String> {
  ==================================================
  Error 기록
 TransactionRequiredException: Executing an update/delete query
+
+Cannot resolve configuration property 'upload-path'

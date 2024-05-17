@@ -1,12 +1,17 @@
 package org.sparta.spartaassignment2.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import org.sparta.spartaassignment2.entity.Schedule;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
+@AllArgsConstructor
+@Schema(name = "Schedule Response DTO")
 public class ScheduleResponseDto {
     private Long id;
     private String title;

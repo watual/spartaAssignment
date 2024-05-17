@@ -1,9 +1,12 @@
 package org.sparta.spartaassignment2.controller;
 
+import jakarta.validation.Valid;
+import org.sparta.spartaassignment2.dto.SchedulePasswordRequestDto;
 import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
 import org.sparta.spartaassignment2.dto.ScheduleResponseDto;
 import org.sparta.spartaassignment2.service.ScheduleService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class ScheduleController {
 
     // 일정 작성
     @PostMapping("/schedule")
-    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto createSchedule(@Valid @RequestBody ScheduleRequestDto requestDto) {
         return scheduleService.createSchedule(requestDto);
     }
 
@@ -36,14 +39,19 @@ public class ScheduleController {
 
     // 선택한 일정 수정
     @PutMapping("/schedule/{id}")
-    public ScheduleResponseDto modifySchedule(@PathVariable Long id, @RequestBody ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto modifySchedule(@PathVariable Long id, @Valid @RequestBody ScheduleRequestDto requestDto) {
         return scheduleService.modifySchedule(id, requestDto);
     }
 
     // 선택한 일정 삭제
     @DeleteMapping("/schedule")
-    public void deleteSchedule(Long id, String password){
-        scheduleService.deleteSchedule(id, password);
+    public void deleteSchedule(@Valid @RequestBody SchedulePasswordRequestDto schedulePasswordRequestDto) {
+        scheduleService.deleteSchedule(schedulePasswordRequestDto);
     }
 
+    @PostMapping("/upload")
+    public String fileUpload(@RequestParam("file") MultipartFile file) {
+        scheduleService.fileUpload(file);
+        return "You successfully uploaded " + file.getOriginalFilename() + "!";
+    }
 }
