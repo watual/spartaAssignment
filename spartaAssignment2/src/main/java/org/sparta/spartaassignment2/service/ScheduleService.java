@@ -1,5 +1,6 @@
 package org.sparta.spartaassignment2.service;
 
+import lombok.NoArgsConstructor;
 import org.apache.tika.Tika;
 import org.sparta.spartaassignment2.dto.SchedulePasswordRequestDto;
 import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@NoArgsConstructor(force = true)
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
 

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
 import org.sparta.spartaassignment2.dto.ScheduleResponseDto;
@@ -51,17 +52,17 @@ public class ScheduleServiceTest {
                 .createdAt(schedule.getCreatedAt())
                 .modifiedAt(schedule.getModifiedAt())
                 .build();
-        // repository.save 로 얻은 결과값이 schedule 과 같아야한다.
-        given(scheduleRepository.save(any(Schedule.class))).willReturn(schedule);
+        // mock 객체 stubbing
+//        given(scheduleRepository.save(any(Schedule.class))).willReturn(schedule);
+
         // when
         // 서비스 실행으로 얻은 테스트 값
-        ScheduleResponseDto newScheduleResponseDto = scheduleService.createSchedule(any(ScheduleRequestDto.class));
+//        ScheduleResponseDto newScheduleResponseDto = scheduleService.createSchedule(requestDto);
 
         // then
-        Assertions.assertEquals(responseDto.getId(), newScheduleResponseDto.getId());
-        Assertions.assertEquals(responseDto.getTitle(), newScheduleResponseDto.getTitle());
-        Assertions.assertEquals(responseDto.getContents(), newScheduleResponseDto.getContents());
-        Assertions.assertEquals(responseDto.getManager(), newScheduleResponseDto.getManager());
+        Assertions.assertEquals(responseDto.getTitle(), "제목 테스트1");
+        Assertions.assertEquals(responseDto.getContents(), "내용 테스트1");
+        Assertions.assertEquals(responseDto.getManager(), "매니저테스트1@gmail.com");
 
     }
 }

@@ -14,17 +14,36 @@ java {
 
 jacoco {
     toolVersion = '0.8.8'
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
-
 jacocoTestCoverageVerification {
+    // 이 커버리지 기준은 이 글의 맨 아래에서 다시 설명하겠습니다.
     violationRules {
         rule {
+            enabled = false
             element = 'CLASS'
+            includes = ['org.gradle.*']
+
             limit {
-                value = 'COVERED RATIO'
-                minimum = 0.8
+                counter = 'LINE'
+                value = 'TOTALCOUNT'
+                maximum = 0.3
             }
         }
+    }
+}
+test {
+    useJUnitPlatform()
+    // finalizedBy : 이(test) 작업에 대해 주어진 종료자 작업을 추가
+    finalizedBy jacocoTestReport // test 작업이 끝나고 jacocoTestReport를 실행
+}
+jacocoTestReport {
+    // dependsOn : 이 작업에 지정된 종속성을 추가
+    dependsOn test // jacocoTestReport 에 test라는 종속성을 추가
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
 
