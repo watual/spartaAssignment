@@ -8,6 +8,7 @@ import org.sparta.spartaassignment2.entity.Schedule;
 import org.sparta.spartaassignment2.error.FileExtensionException;
 import org.sparta.spartaassignment2.error.FileStorageException;
 import org.sparta.spartaassignment2.error.WrongPasswordException;
+import org.sparta.spartaassignment2.error.WrongWayException;
 import org.sparta.spartaassignment2.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ScheduleService {
@@ -37,6 +39,7 @@ public class ScheduleService {
     }
 
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
+        nullCheck(requestDto);
         Schedule schedule = new Schedule(requestDto);   // 요청받은 스케쥴entity 7
         scheduleRepository.save(schedule);  //스케쥴entity -> DB보냄
         // DB에서 스케쥴entity 가져옴 -> schedule2
@@ -103,6 +106,17 @@ public class ScheduleService {
         String mimeType = tika.detect(inputStream);
         if (notValidTypeList.stream().anyMatch(notValidType -> notValidType.equalsIgnoreCase(mimeType))) {
             throw new FileExtensionException("이미지 파일이 아닙니다.");
+        }
+    }
+    public static void nullCheck(Object obj) {
+        if (
+                (obj == null) ||
+                ((obj instanceof String) && (((String)obj).trim().length() == 0)) ||
+                (obj instanceof Map) &&  (((Map<?, ?>)obj).isEmpty()) ||
+                (obj instanceof List) && ((List<?>)obj).isEmpty() ||
+                (obj instanceof Object[]) && (((Object[])obj).length == 0)
+        ){
+            throw new WrongWayException("Null 값이 들어와선 안됩니다.");
         }
     }
 
