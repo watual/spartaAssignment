@@ -11,6 +11,8 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class ScheduleRequestDto {
+
+    private Long id;
 //    @Max(value = 2000)
     @NotBlank(message = "제목을 반드시 입력해주세요.")
     private String title;

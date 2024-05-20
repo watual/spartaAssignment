@@ -1,12 +1,13 @@
 package org.sparta.spartaassignment2;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
 import org.sparta.spartaassignment2.dto.ScheduleResponseDto;
@@ -16,6 +17,7 @@ import org.sparta.spartaassignment2.service.ScheduleService;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -25,8 +27,15 @@ public class ScheduleServiceTest {
     @Mock
     ScheduleRepository scheduleRepository;
 
+
+
     @InjectMocks
     ScheduleService scheduleService;
+
+    @BeforeEach
+    public void beforeEach() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     @DisplayName("테스트: 스케쥴 생성")
@@ -42,10 +51,11 @@ public class ScheduleServiceTest {
                 .build();
         // requestDto 변환 값
         Schedule schedule = new Schedule(requestDto);
+        schedule.setId(1L);
 
         // 만들어져야하는 responseDto
         ScheduleResponseDto responseDto = ScheduleResponseDto.builder()
-                .id(schedule.getId())
+                .id(1L)
                 .title(schedule.getTitle())
                 .contents(schedule.getContents())
                 .manager(schedule.getManager())
@@ -54,15 +64,13 @@ public class ScheduleServiceTest {
                 .build();
         // mock 객체 stubbing
 //        given(scheduleRepository.save(any(Schedule.class))).willReturn(schedule);
-
         // when
         // 서비스 실행으로 얻은 테스트 값
-//        ScheduleResponseDto newScheduleResponseDto = scheduleService.createSchedule(requestDto);
+        ScheduleResponseDto newScheduleResponseDto = scheduleService.createSchedule(requestDto);
 
         // then
         Assertions.assertEquals(responseDto.getTitle(), "제목 테스트1");
         Assertions.assertEquals(responseDto.getContents(), "내용 테스트1");
         Assertions.assertEquals(responseDto.getManager(), "매니저테스트1@gmail.com");
-
     }
 }

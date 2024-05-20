@@ -36,4 +36,8 @@ public class Schedule extends Timestamped {
         this.manager = requestDto.getManager();
         this.password = requestDto.getPassword();
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

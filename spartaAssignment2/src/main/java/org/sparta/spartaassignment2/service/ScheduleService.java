@@ -9,10 +9,10 @@ import org.sparta.spartaassignment2.entity.Schedule;
 import org.sparta.spartaassignment2.error.FileExtensionException;
 import org.sparta.spartaassignment2.error.FileStorageException;
 import org.sparta.spartaassignment2.error.WrongPasswordException;
-import org.sparta.spartaassignment2.error.WrongWayException;
 import org.sparta.spartaassignment2.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,10 +25,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Service
-@NoArgsConstructor(force = true)
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
 
@@ -40,12 +38,12 @@ public class ScheduleService {
         this.scheduleRepository = scheduleRepository;
     }
 
+
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
-        nullCheck(requestDto);
+//        nullCheck(requestDto);
         Schedule schedule = new Schedule(requestDto);   // 요청받은 스케쥴entity 7
         scheduleRepository.save(schedule);  //스케쥴entity -> DB보냄
-        // DB에서 스케쥴entity 가져옴 -> schedule2
-        return new ScheduleResponseDto(scheduleRepository.getReferenceById(schedule.getId()));   //schedule2 -> ResponseDto 반환
+        return new ScheduleResponseDto(schedule);   //schedule -> ResponseDto 반환
     }
 
     public ScheduleResponseDto getSchedule(Long id) {
@@ -57,16 +55,14 @@ public class ScheduleService {
         return scheduleRepository.findAllByOrderByModifiedAtDesc().stream().map(ScheduleResponseDto::new).toList();
     }
 
+    @Transactional
     public ScheduleResponseDto modifySchedule(Long id, ScheduleRequestDto requestDto) {
         Schedule schedule = findSchedule(id);
         if (!requestDto.getPassword().equals(schedule.getPassword())) {
             throw new WrongPasswordException("틀린 비밀번호입니다.");
         }
         schedule.update(requestDto);
-
-        Schedule schedule1 = new Schedule(requestDto);
-        scheduleRepository.save(schedule1); // DB에 저장이 됩니다!
-        return new ScheduleResponseDto(findSchedule(id));
+        return new ScheduleResponseDto(schedule);
     }
 
     public Schedule findSchedule(Long id) {
@@ -79,6 +75,12 @@ public class ScheduleService {
         Long id = schedulePasswordRequestDto.getId();
         String password = schedulePasswordRequestDto.getPassword();
         if (!password.equals(findSchedule(id).getPassword())) {
+            throw new WrongPasswordException("틀린 비밀번호입니다.");
+        }
+        scheduleRepository.deleteById(id);
+    }
+    public void deleteSchedule(Long id, String pass) {
+        if (!pass.equals(findSchedule(id).getPassword())) {
             throw new WrongPasswordException("틀린 비밀번호입니다.");
         }
         scheduleRepository.deleteById(id);
@@ -110,16 +112,16 @@ public class ScheduleService {
             throw new FileExtensionException("이미지 파일이 아닙니다.");
         }
     }
-    public static void nullCheck(Object obj) {
-        if (
-                (obj == null) ||
-                ((obj instanceof String) && (((String)obj).trim().length() == 0)) ||
-                (obj instanceof Map) &&  (((Map<?, ?>)obj).isEmpty()) ||
-                (obj instanceof List) && ((List<?>)obj).isEmpty() ||
-                (obj instanceof Object[]) && (((Object[])obj).length == 0)
-        ){
-            throw new WrongWayException("Null 값이 들어와선 안됩니다.");
-        }
-    }
+//    public static void nullCheck(Object obj) {
+//        if (
+//                (obj == null) ||
+//                ((obj instanceof String) && (((String)obj).trim().length() == 0)) ||
+//                (obj instanceof Map) &&  (((Map<?, ?>)obj).isEmpty()) ||
+//                (obj instanceof List) && ((List<?>)obj).isEmpty() ||
+//                (obj instanceof Object[]) && (((Object[])obj).length == 0)
+//        ){
+//            throw new WrongWayException("Null 값이 들어와선 안됩니다.");
+//        }
+//    }
 
 }

@@ -4,7 +4,9 @@ import jakarta.validation.Valid;
 import org.sparta.spartaassignment2.dto.SchedulePasswordRequestDto;
 import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
 import org.sparta.spartaassignment2.dto.ScheduleResponseDto;
+import org.sparta.spartaassignment2.entity.ErrorCode;
 import org.sparta.spartaassignment2.service.ScheduleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +37,10 @@ public class ScheduleController {
     @GetMapping("/schedule")
     public List<ScheduleResponseDto> getScheduleAll() {
         return scheduleService.getScheduleAll();
+    }
+    @GetMapping("/error")
+    public ErrorCode getError() {
+        return new ErrorCode("안녕~", HttpStatus.BAD_REQUEST);
     }
 
     // 선택한 일정 수정
