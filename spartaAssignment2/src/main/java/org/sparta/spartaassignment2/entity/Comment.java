@@ -32,4 +32,8 @@ public class Comment extends TimestampedOne {
         this.manager = requestDto.getManager();
         this.schedule = schedule;
     }
+
+    public void update(CommentRequestDto requestDto) {
+        this.text = requestDto.getText();
+    }
 }

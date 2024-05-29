@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class TimestampedOne {
 
-    @CreatedDate
+    @LastModifiedDate
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime date;

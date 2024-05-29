@@ -1,6 +1,7 @@
 package org.sparta.spartaassignment2.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.sparta.spartaassignment2.dto.CommentRequestDto;
 import org.sparta.spartaassignment2.dto.CommentResponseDto;
 import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
@@ -10,8 +11,11 @@ import org.sparta.spartaassignment2.entity.Schedule;
 import org.sparta.spartaassignment2.repository.CommentRepository;
 import org.sparta.spartaassignment2.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
+@Slf4j(topic = "서비스 테스트")
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -35,5 +39,28 @@ public class CommentService {
         Comment comment = new Comment(requestDto, schedule);
         commentRepository.save(comment);
         return new CommentResponseDto(comment);
+    }
+
+    @Transactional
+    public CommentResponseDto updateComment(CommentRequestDto requestDto, Long commentId) {
+        if(requestDto.getScheduleId() == null) {
+            throw new NullPointerException("일정ID가 입력되지 않았습니다.");
+        }
+        Comment comment = commentRepository.findById(commentId).orElseThrow(
+                () -> new NullPointerException("등록된 댓글이 없습니다.")
+        );
+        scheduleRepository.findById(requestDto.getScheduleId()).orElseThrow(
+                () -> new NullPointerException("등록된 일정이 없습니다.")
+        );
+        if(!comment.getManager().equals(requestDto.getManager())) {
+            throw new IllegalArgumentException("올바른 사용자가 아닙니다.");
+        }
+
+        comment.update(requestDto);
+        return new CommentResponseDto(comment);
+    }
+
+    public List<CommentResponseDto> getCommentAll() {
+        return commentRepository.findAll().stream().map(CommentResponseDto::new).toList();
     }
 }
