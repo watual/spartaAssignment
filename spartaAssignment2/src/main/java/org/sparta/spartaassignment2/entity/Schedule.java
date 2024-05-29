@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
 
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -11,6 +13,7 @@ import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
 @Builder
 @Table
 public class Schedule extends Timestamped {
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +25,10 @@ public class Schedule extends Timestamped {
     private String manager;
     @Column(nullable = false)
     private String password;
+
+    // 하나의 스케쥴에 다수의 댓글이 달리므로 댓글N : 스케쥴1 관계 설정
+    @OneToMany(mappedBy = "schedule_id")
+    private List<Comment> commentList;
 
     public Schedule(ScheduleRequestDto requestDto) {
         this.title = requestDto.getTitle();
@@ -35,9 +42,5 @@ public class Schedule extends Timestamped {
         this.contents = requestDto.getContents();
         this.manager = requestDto.getManager();
         this.password = requestDto.getPassword();
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

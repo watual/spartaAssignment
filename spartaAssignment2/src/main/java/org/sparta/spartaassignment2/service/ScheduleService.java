@@ -10,6 +10,7 @@ import org.sparta.spartaassignment2.error.FileExtensionException;
 import org.sparta.spartaassignment2.error.FileStorageException;
 import org.sparta.spartaassignment2.error.WrongPasswordException;
 import org.sparta.spartaassignment2.repository.ScheduleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ public class ScheduleService {
     @Value("${upload.dir:${user.home}}")
     private String uploadDir;
 
+    @Autowired
     public ScheduleService(ScheduleRepository scheduleRepository) {
         this.scheduleRepository = scheduleRepository;
     }
