@@ -27,7 +27,7 @@ public class Schedule extends Timestamped {
     private String password;
 
     // 하나의 스케쥴에 다수의 댓글이 달리므로 댓글N : 스케쥴1 관계 설정
-    @OneToMany(mappedBy = "schedule_id")
+    @OneToMany(mappedBy = "schedule")
     private List<Comment> commentList;
 
     public Schedule(ScheduleRequestDto requestDto) {
