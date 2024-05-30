@@ -5,15 +5,11 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.sparta.spartaassignment2.entity.Schedule;
 import org.sparta.spartaassignment2.jwt.JwtUtil;
-import org.sparta.spartaassignment2.repository.CommentRepository;
 import org.sparta.spartaassignment2.repository.ScheduleRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -30,7 +26,14 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String url = httpServletRequest.getRequestURI();
+
         if (StringUtils.hasText(url) &&
+                (url.startsWith("/api/user"))
+        ) {
+            // 미인증, 미인가
+            log.info("인증 처리를 하지 않는 URL : " + url);
+            chain.doFilter(request, response);
+        } else if (StringUtils.hasText(url) &&
                 (url.startsWith("/api/createToken"))
         ) {
             // 인증절차

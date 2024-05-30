@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.sparta.spartaassignment2.entity.Comment;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,7 +15,7 @@ public class CommentResponseDto {
     private String text;
     private String manager;
     private Long scheduleId;
-    private LocalDateTime date;
+    private Timestamp date;
 
     public CommentResponseDto(Comment comment) {
         this.commentId = comment.getId();
