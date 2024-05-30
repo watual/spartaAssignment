@@ -59,6 +59,10 @@ repositories {
 
 dependencies {
 
+    // JWT
+    compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
     // Mockito 테스트 코드 환경 구축
     testImplementation 'org.mockito:mockito-core:4.8.0'

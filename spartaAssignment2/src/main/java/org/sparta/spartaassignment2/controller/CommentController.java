@@ -1,9 +1,12 @@
 package org.sparta.spartaassignment2.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.sparta.spartaassignment2.dto.CommentRequestDto;
 import org.sparta.spartaassignment2.dto.CommentResponseDto;
+import org.sparta.spartaassignment2.jwt.JwtUtil;
 import org.sparta.spartaassignment2.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +38,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/comment")
-    public ResponseEntity<String> deleteComment(@RequestParam Long commentId, @RequestParam String manager) {
+    public ResponseEntity<String> deleteComment(HttpServletRequest request, @RequestParam Long commentId, @RequestParam String manager) {
         return new ResponseEntity<>(commentService.deleteComment(commentId, manager), HttpStatus.OK);
     }
+
 }

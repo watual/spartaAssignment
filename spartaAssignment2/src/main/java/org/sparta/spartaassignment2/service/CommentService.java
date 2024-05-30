@@ -2,14 +2,17 @@ package org.sparta.spartaassignment2.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.sparta.spartaassignment2.dto.CommentRequestDto;
 import org.sparta.spartaassignment2.dto.CommentResponseDto;
 import org.sparta.spartaassignment2.entity.Comment;
 import org.sparta.spartaassignment2.entity.Schedule;
 import org.sparta.spartaassignment2.repository.CommentRepository;
 import org.sparta.spartaassignment2.repository.ScheduleRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -76,7 +79,7 @@ public class CommentService {
                 () -> new NullPointerException("존재하지 않는 일정입니다.")
         );
         if (!comment.getManager().equals(manager)) {
-            throw new IllegalArgumentException("삭제권한이 없는 사용자입니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "작성자만 삭제/수정할 수 있습니다.");
         }
         commentRepository.deleteById(commentId);
         return "댓글 삭제 완료!";
