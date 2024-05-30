@@ -40,7 +40,6 @@ public class ScheduleService {
         this.scheduleRepository = scheduleRepository;
     }
 
-
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
 //        nullCheck(requestDto);
         Schedule schedule = new Schedule(requestDto);   // 요청받은 스케쥴entity 7

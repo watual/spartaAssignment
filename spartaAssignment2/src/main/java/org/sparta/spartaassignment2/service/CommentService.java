@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sparta.spartaassignment2.dto.CommentRequestDto;
 import org.sparta.spartaassignment2.dto.CommentResponseDto;
-import org.sparta.spartaassignment2.dto.ScheduleRequestDto;
-import org.sparta.spartaassignment2.dto.ScheduleResponseDto;
 import org.sparta.spartaassignment2.entity.Comment;
 import org.sparta.spartaassignment2.entity.Schedule;
 import org.sparta.spartaassignment2.repository.CommentRepository;
@@ -25,7 +23,7 @@ public class CommentService {
 
     public CommentResponseDto addComment(CommentRequestDto requestDto) {
         // 예외처리 : 선택한 일정의 ID를 입력 받지 않은 경우
-        if (requestDto.getScheduleId() == null){
+        if (requestDto.getScheduleId() == null) {
             throw new IllegalArgumentException("일정이 선택되지 않았습니다.");
         }
         // 예외처리 : 댓글 내용이 비어 있는 경우
@@ -43,7 +41,7 @@ public class CommentService {
 
     @Transactional
     public CommentResponseDto updateComment(CommentRequestDto requestDto, Long commentId) {
-        if(requestDto.getScheduleId() == null) {
+        if (requestDto.getScheduleId() == null) {
             throw new NullPointerException("일정ID가 입력되지 않았습니다.");
         }
         Comment comment = commentRepository.findById(commentId).orElseThrow(
@@ -52,7 +50,7 @@ public class CommentService {
         scheduleRepository.findById(requestDto.getScheduleId()).orElseThrow(
                 () -> new NullPointerException("등록된 일정이 없습니다.")
         );
-        if(!comment.getManager().equals(requestDto.getManager())) {
+        if (!comment.getManager().equals(requestDto.getManager())) {
             throw new IllegalArgumentException("올바른 사용자가 아닙니다.");
         }
 
@@ -62,5 +60,25 @@ public class CommentService {
 
     public List<CommentResponseDto> getCommentAll() {
         return commentRepository.findAll().stream().map(CommentResponseDto::new).toList();
+    }
+
+    public String deleteComment(Long commentId, String manager) {
+        if (commentId == null) {
+            throw new NullPointerException("선택된 댓글이 없습니다.");
+        }
+        if (manager == null) {
+            throw new NullPointerException("사용자가 인식되지 않았습니다.");
+        }
+        Comment comment = commentRepository.findById(commentId).orElseThrow(
+                () -> new NullPointerException("존재하지 않는 댓글입니다.")
+        );
+        scheduleRepository.findById(comment.getSchedule().getId()).orElseThrow(
+                () -> new NullPointerException("존재하지 않는 일정입니다.")
+        );
+        if (!comment.getManager().equals(manager)) {
+            throw new IllegalArgumentException("삭제권한이 없는 사용자입니다.");
+        }
+        commentRepository.deleteById(commentId);
+        return "댓글 삭제 완료!";
     }
 }
