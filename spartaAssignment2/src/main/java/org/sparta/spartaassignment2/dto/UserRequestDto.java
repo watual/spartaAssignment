@@ -1,6 +1,5 @@
 package org.sparta.spartaassignment2.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

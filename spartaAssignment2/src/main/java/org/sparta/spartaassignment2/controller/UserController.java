@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 public class UserController {
 
+    private final JwtUtil jwtUtil;
     private final UserService userService;
 
     @PostMapping("/signup")
@@ -23,5 +24,13 @@ public class UserController {
         UserResponseDto responseDto = userService.signup(requestDto);
         responseDto.setSuccessText("회원가입 성공");
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(HttpServletResponse httpServletResponse, @RequestParam String username, @RequestParam String password) {
+        userService.login(username, password);
+        String token = jwtUtil.createToken(username);
+        jwtUtil.addJwtToCookie(token, httpServletResponse);
+        return new ResponseEntity<>("로그인 성공", HttpStatus.OK);
     }
 }

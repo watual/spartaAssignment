@@ -36,4 +36,11 @@ public class User extends TimestampedOne{
         this.password = requestDto.getPassword();
         this.auth = requestDto.getAuth();
     }
+
+    public User(UserRequestDto requestDto, String password) {
+        this.nickname = requestDto.getNickname();
+        this.username = requestDto.getUsername();
+        this.password = password;
+        this.auth = requestDto.getAuth();
+    }
 }
